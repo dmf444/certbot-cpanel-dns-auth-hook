@@ -1,0 +1,10 @@
+services:
+  ssl-renew:
+    image: ghcr.io/dmf444/certbot-cpanel-dns-auth-hook:latest
+    environment:
+      - CPANEL_DNS_CPANEL_URI="https://cpanel.example.com:2083"
+      - CPANEL_DNS_CPANEL_AUTH_USERNAME="testuser"
+      - CPANEL_DNS_CPANEL_AUTH_PASSWORD="my_cpanel_token" # Or password, however token from cPanel is prefered
+      # - EMAIL="email@fake.com" # Uncomment this, place in your email. Because of limits with docker, this is an acknowledgement that you accept the ToS of certbot.
+      - CSVDOM="website.com,*.website.com" # CSV of the domains you wish to SSL certify.
+      # - CPANEL_DNS_CPANEL_AUTH_METHOD="password" # Only uncomment this if you use your account password above, instead of an API token.

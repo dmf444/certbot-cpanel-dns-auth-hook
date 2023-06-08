@@ -1,5 +1,7 @@
 FROM certbot/certbot
 LABEL authors="dmf444"
+LABEL org.opencontainers.image.source=https://github.com/dmf444/certbot-cpanel-dns-auth-hook
+LABEL org.opencontainers.image.description="A container for updating SSL certs, through the cPanel API."
 
 ARG CSV_DOMAINS
 

@@ -12,7 +12,7 @@ spec:
         spec:
           containers:
           - name: ssl-renew-pod
-            image: https://ghcr.io
+            image: https://ghcr.io/dmf444/certbot-cpanel-dns-auth-hook:latest
             imagePullPolicy: Always
             env:
               - name: CPANEL_DNS_CPANEL_URI
