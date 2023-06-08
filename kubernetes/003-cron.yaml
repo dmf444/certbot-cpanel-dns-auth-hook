@@ -1,0 +1,43 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ssl-renew-cron
+  namespace: ssl-renewal
+spec:
+  schedule: "* * * */3 *"
+  concurrencyPolicy: Replace
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: ssl-renew-pod
+            image: https://ghcr.io
+            imagePullPolicy: Always
+            env:
+              - name: CPANEL_DNS_CPANEL_URI
+                valueFrom:
+                  secretKeyRef:
+                    name: cpanel-secrets
+                    key: cpanel_url
+              - name: CPANEL_DNS_CPANEL_AUTH_USERNAME
+                valueFrom:
+                  secretKeyRef:
+                    name: cpanel-secrets
+                    key: username
+              - name: CPANEL_DNS_CPANEL_AUTH_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: cpanel-secrets
+                    key: password
+              - name: EMAIL
+                valueFrom:
+                  secretKeyRef:
+                    name: cpanel-secrets
+                    key: email
+              - name: CSVDOM
+                valueFrom:
+                  secretKeyRef:
+                    name: cpanel-secrets
+                    key: urls
+          restartPolicy: OnFailure

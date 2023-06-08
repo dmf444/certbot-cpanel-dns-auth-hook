@@ -1,4 +1,4 @@
-# certbot-cpanel-dns-auth-hook
+# cPanel (NameCheap) DNS SSL renewal hook
 
 This is an "auth hook" for Certbot that enables you to perform DNS-01 authentication.
 
@@ -9,6 +9,8 @@ All it requires is that you have cPanel login credentials, and that your cPanel 
 The script can optionally install the issued certificate on a selected domain via the cPanel API.
 
 ## Usage
+
+See docker usage below.
 
 These instructions assume you are on a shell as the `root` user.
 
@@ -47,6 +49,17 @@ certbot certonly --manual \
 You can optionally add `--deploy-hook "/etc/letsencrypt/cpanel-dns.py install"` to install the issued certificate on the same cPanel domain as is the certificate's lineage name (in the example above: `example.com`). You can also use `... install example.com` to specify its name if your cPanel domain is different.
 
 If this succeeds, so should automatic renewal.
+
+## Docker Container
+
+This container was built and tested for renewing SSL certs with Namecheap. As such, it has only been tested there.
+
+Build the container using:
+```shell
+docker build -f Dockerfile --build-args CSV_DOMAINS=example.com,*.example.com . 
+```
+Note: you can safely omit CSV_DOMAINS if you intend to run the build using ENV only, either through the provided docker-compose or through a K8s deployment.
+
 
 
 ## Testing (for developers)

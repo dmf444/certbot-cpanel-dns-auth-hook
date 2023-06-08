@@ -99,6 +99,7 @@ def create_record(domain, txt_value):
     create_params = {
         "domain": zone,
         "name": to_add,
+        "ttl": 60,
         "type": "TXT",
         "txtdata": txt_value,
     }

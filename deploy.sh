@@ -1,0 +1,1 @@
+python /opt/certbot/cpanel-dns.py install
