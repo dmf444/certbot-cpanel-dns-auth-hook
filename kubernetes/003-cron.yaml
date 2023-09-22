@@ -4,7 +4,7 @@ metadata:
   name: ssl-renew-cron
   namespace: ssl-renewal
 spec:
-  schedule: "* * * */3 *"
+  schedule: "0 18 17 */2 *"
   concurrencyPolicy: Replace
   jobTemplate:
     spec:
@@ -12,7 +12,7 @@ spec:
         spec:
           containers:
           - name: ssl-renew-pod
-            image: https://ghcr.io/dmf444/certbot-cpanel-dns-auth-hook:latest
+            image: ghcr.io/dmf444/certbot-cpanel-dns-auth-hook:latest
             imagePullPolicy: Always
             env:
               - name: CPANEL_DNS_CPANEL_URI
@@ -40,4 +40,5 @@ spec:
                   secretKeyRef:
                     name: cpanel-secrets
                     key: urls
-          restartPolicy: OnFailure
+          restartPolicy: Never
+      backoffLimit: 1
